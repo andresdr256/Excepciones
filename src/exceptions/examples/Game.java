@@ -6,6 +6,12 @@ import java.time.*;
 import java.time.format.*;
 
 public class Game {
+
+    private static final String FORMAT_FOR_DATES = "yyyy/MM/dd HH/mm/ss";
+    private static final String FILE_NAME_SCORE = "score.txt";
+    private static final String FILE_NAME_PROGRESS = "progress.txt";
+    private static final String FILE_NAME_STATISTICS = "statistics.txt";
+
     public void saveGame() {
         try{
             saveProgress();
@@ -24,9 +30,9 @@ public class Game {
         FileWriter writer = null;
         try {
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH/mm/ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
 
-            writer = new FileWriter("Statistics.txt", true);
+            writer = new FileWriter(FILE_NAME_STATISTICS, true);
 
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
 
@@ -48,15 +54,15 @@ public class Game {
         FileWriter writer = null;
         try {
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH/mm/ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
 
-            writer = new FileWriter("Score.txt", true);
+            writer = new FileWriter(FILE_NAME_SCORE, true);
 
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
 
             writer.close();
         } catch (IOException e) {
-            throw new SaveScoreException();
+            throw new SaveScoreException("El mensaje", e);
         } finally{
             if(writer != null){
                 try{
@@ -72,9 +78,9 @@ public class Game {
         FileWriter writer = null;
         try {
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH/mm/ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_FOR_DATES);
 
-            writer = new FileWriter("Progress.txt", true);
+            writer = new FileWriter(FILE_NAME_PROGRESS, true);
 
             writer.append("Guardado: ").append(now.format(formatter)).append(System.lineSeparator());
 
